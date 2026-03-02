@@ -6,19 +6,30 @@ services:
       args:
         ENVIRONMENT: production
     image: ${APP_IMAGE}
-    container_name: ${APP_SERVICE_NAME}
+    environment:
+      APP_ENV: ${APP_ENV}
+      APP_KEY: ${APP_KEY}
+      APP_DEBUG: ${APP_DEBUG}
+      APP_URL: ${APP_URL}
+      DB_CONNECTION: ${DB_CONNECTION}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
     ports:
       - "${APP_PORT}:9000"
     depends_on:
       - mysql
 
   nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
     image: nginx:alpine
     container_name: ${NGINX_SERVICE_NAME}
     ports:
       - "${NGINX_PORT}:80"
-    volumes:
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - app
 
