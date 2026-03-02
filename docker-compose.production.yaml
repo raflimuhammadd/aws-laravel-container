@@ -26,7 +26,7 @@ services:
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
-    image: nginx:alpine
+    image: ${NGINX_IMAGE}
     container_name: ${NGINX_SERVICE_NAME}
     ports:
       - "${NGINX_PORT}:80"
