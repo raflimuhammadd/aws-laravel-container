@@ -54,5 +54,5 @@ jobs:
             docker pull $IMAGE_NAME
 
             echo "Restarting containers..."
-            docker-compose -f docker-compose.production.yml down
-            docker-compose -f docker-compose.production.yml up -d
+            docker-compose -f docker-compose.production.yaml down
+            docker-compose -f docker-compose.production.yaml up -d
