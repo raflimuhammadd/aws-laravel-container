@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/raflimuhammadd/aws-docker-container/app:latest
+    image: ghcr.io/raflimuhammadd/aws-laravel-container/app:latest
     environment:
       APP_ENV: ${APP_ENV}
       APP_KEY: ${APP_KEY}
@@ -17,16 +17,14 @@ services:
       dockerfile: docker/php/Dockerfile
       args:
         ENVIRONMENT: production
+    container_name: ${APP_SERVICE_NAME}
     ports:
       - "${APP_PORT}:9000"
     depends_on:
       - mysql
 
   nginx:
-    build:
-      context: .
-      dockerfile: docker/nginx/Dockerfile
-    image: ghcr.io/raflimuhammadd/aws-docker-container/laravel-nginx:latest
+    image: ghcr.io/raflimuhammadd/aws-laravel-container/laravel-nginx:latest
     container_name: ${NGINX_SERVICE_NAME}
     ports:
       - "${NGINX_PORT}:80"
