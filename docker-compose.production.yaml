@@ -1,11 +1,6 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: docker/php/Dockerfile
-      args:
-        ENVIRONMENT: production
-    image: ${APP_IMAGE}
+    image: ghcr.io/raflimuhammadd/aws-docker-container/app:latest
     environment:
       APP_ENV: ${APP_ENV}
       APP_KEY: ${APP_KEY}
@@ -17,6 +12,11 @@ services:
       DB_DATABASE: ${DB_DATABASE}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      args:
+        ENVIRONMENT: production
     ports:
       - "${APP_PORT}:9000"
     depends_on:
@@ -26,7 +26,7 @@ services:
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
-    image: ${NGINX_IMAGE}
+    image: ghcr.io/raflimuhammadd/aws-docker-container/laravel-nginx:latest
     container_name: ${NGINX_SERVICE_NAME}
     ports:
       - "${NGINX_PORT}:80"
